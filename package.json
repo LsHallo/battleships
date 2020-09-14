@@ -1,0 +1,54 @@
+{
+  "name": "battleships",
+  "version": "1.0.0",
+  "description": "Well known game about hiding and hitting ships.",
+  "main": "dist/server/main.js",
+  "scripts": {
+    "build": "tsc -p tsconfig.json && webpack --config webpack.production.config.js && npm-run-all copy:files && sass sass:dist/client/css",
+    "copy:files": "npm-run-all copy:sounds copy:pages copy:fonts copy:favicon",
+    "copy:sounds": "copy-and-watch static/sounds/**/* dist/client/sounds",
+    "copy:pages": "copy-and-watch static/pages/**/* dist/client/pages",
+    "copy:fonts": "copy-and-watch static/fonts/**/* dist/client/fonts",
+    "copy:favicon": "copy-and-watch static/favicon.png dist/client/favicon.png",
+    "start": "node .",
+    "watch": "npm-run-all --parallel watch:compile watch:files watch:nodemon watch:sass",
+    "watch:server": "tsc -w -p tsconfig.json",
+    "watch:client": "webpack --watch",
+    "watch:compile": "npm-run-all --parallel watch:client watch:server",
+    "watch:files": "copy-and-watch --watch static/**/* dist/client",
+    "watch:sass": "sass --watch sass:dist/client/css",
+    "watch:nodemon": "nodemon --watch dist/server/main.js --watch dist/server --watch dist/client -e ts,js,json,mjs,html,mustache"
+  },
+  "keywords": [
+    "battleships",
+    "ships",
+    "strategy",
+    "game",
+    "multiplayer"
+  ],
+  "author": "LsHallo",
+  "license": "MIT",
+  "dependencies": {
+    "consolidate": "^0.15.1",
+    "express": "^4.17.1",
+    "mustache": "^4.0.1",
+    "mustache-express": "^1.3.0",
+    "socket.io": "^2.3.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.8",
+    "@types/node": "^14.6.4",
+    "@types/socket.io": "^2.1.11",
+    "@types/socket.io-client": "^1.4.33",
+    "copy-and-watch": "^0.1.5",
+    "nodemon": "^2.0.4",
+    "npm-run-all": "^4.1.5",
+    "sass": "^1.26.10",
+    "ts-loader": "^7.0.5",
+    "ts-node": "^9.0.0",
+    "tslint": "^6.1.3",
+    "typescript": "^4.0.2",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12"
+  }
+}
